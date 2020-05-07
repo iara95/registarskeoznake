@@ -22,9 +22,9 @@ class CreatePermitsTable extends Migration
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('car_id');
-            $table->foreign('employee_id')->references('id')->on('employees');
-            $table->foreign('city_id')->references('id')->on('cities');
-            $table->foreign('car_id')->references('id')->on('cars');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
 
             $table->timestamps();
         });

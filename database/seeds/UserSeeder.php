@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\permit;
+use App\user;
 
-class PermitSeeder extends Seeder
+
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +13,6 @@ class PermitSeeder extends Seeder
      */
     public function run()
     {
-        factory(permit::class, 50)->create();
-
+        factory(user::class, 50)->create();
     }
 }

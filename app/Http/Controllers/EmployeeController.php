@@ -7,14 +7,23 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    
+    protected $perpage = 10;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if($request->has('per_page')) {
+            $this->perPage = $request->input('per_page');}
+
+        $employees = Employee::all();
+        return ['success' => true,
+                'employees' => $employees
+            ];
     }
 
     /**
@@ -35,7 +44,18 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->validate([
+            'ime' => 'required|max:255',
+            'prezime' => 'required|max:255',
+            'oib' => 'required|unique:drivers|max:11',
+            'user_id' => 'required'
+        ]);
+
+        $employee = Employee::create($input);
+        return [
+            'success' => true,
+            'employee' => $employee
+        ];
     }
 
     /**
@@ -46,20 +66,13 @@ class EmployeeController extends Controller
      */
     public function show(employee $employee)
     {
-        //
+        return [
+            'success' => true,
+            'employee' => $employee
+        ];
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\employee  $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(employee $employee)
-    {
-        //
-    }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -69,7 +82,13 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, employee $employee)
     {
-        //
+        $input = $request->input();
+        $employee->fill($input);
+        $employee->save();
+        return [
+            'success' => true,
+            'employee' => $employee
+        ];
     }
 
     /**
@@ -78,8 +97,9 @@ class EmployeeController extends Controller
      * @param  \App\employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(employee $employee)
+    public function destroy($id)
     {
-        //
+        $success = Employee::destroy($id) == 1; // true ili false
+        return ['success' => $success];
     }
 }

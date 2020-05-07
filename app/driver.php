@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class driver extends Model
 {
-    //
+    protected $fillable = [
+        'oib',
+        'ime',
+        'prezime'
+    ];
 }

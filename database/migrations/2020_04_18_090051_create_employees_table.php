@@ -17,8 +17,11 @@ class CreateEmployeesTable extends Migration
             $table->id();
             $table->string('ime', 255);
             $table->string('prezime', 255);
-            $table->string('oib', 11)->unique();
+            $table->string('oib', 11);
             $table->timestamps();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

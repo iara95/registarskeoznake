@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\driver;
 class DriverSeeder extends Seeder
 {
     /**
@@ -11,6 +11,6 @@ class DriverSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(driver::class, 100)->create();
     }
 }

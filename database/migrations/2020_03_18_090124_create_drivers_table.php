@@ -15,7 +15,7 @@ class CreateDriversTable extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->string('oib', 11)->unique();
+            $table->string('oib', 11);
             $table->string('ime', 255);
             $table->string('prezime', 255);
             $table->timestamps();

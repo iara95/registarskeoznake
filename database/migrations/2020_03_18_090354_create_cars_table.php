@@ -16,15 +16,15 @@ class CreateCarsTable extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
             $table->string('tip_vozila', 255);
-            $table->string('marke', 255);
+            $table->string('marka', 255);
             $table->string('model', 255);
-            $table->date('godina_provizvodnje');
+            $table->date('godina_proizvodnje');
             $table->string('osig_kuca', 255);
             $table->string('broj_police', 255);
             $table->string('reg_oznaka', 50);
             
             $table->unsignedBigInteger('driver_id');
-            $table->foreign('driver_id')->references('id')->on('drivers');
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
             
             $table->timestamps();
         });

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\city;
+use App\user;
 use Illuminate\Http\Request;
 
-class CityController extends Controller
-
+class UserController extends Controller
 {
     protected $perpage = 10;
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +19,9 @@ class CityController extends Controller
         if($request->has('per_page')) {
             $this->perPage = $request->input('per_page');}
 
-        $cities = City::all();
+        $users = User::all();
         return ['success' => true,
-                'cities' => $cities
+                'users' => $users
             ];
     }
 
@@ -44,60 +43,62 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-
         $input = $request->validate([
-            'name' => 'required|unique:cities|max:255',
-            'zip' => 'required|max:5',
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
         ]);
 
-        $city = City::create($input);
+        $user = User::create($input);
         return [
             'success' => true,
-            'city' => $city
+            'user' => $user
         ];
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\city  $city
+     * @param  \App\driver  $driver
      * @return \Illuminate\Http\Response
      */
-    public function show(City $city)
-    {
-        return [
-            'success' => true,
-            'city' => $city
-        ];
+    public function show(Driver $driver)
+    {return [
+        'success' => true,
+        'driver' => $driver
+    ];
+        
     }
+
+
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\city  $city
+     * @param  \App\driver  $driver
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
+    public function update(Request $request, User $user)
     {
         $input = $request->input();
-        $city->fill($input);
-        $city->save();
+        $user->fill($input);
+        $user->save();
         return [
             'success' => true,
-            'city' => $city
+            'user' => $user
         ];
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\city  $city
+     * @param  \App\driver  $driver
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $success = City::destroy($id) == 1; // true ili false
+        $success = User::destroy($id) == 1; // true ili false
         return ['success' => $success];
     }
 }

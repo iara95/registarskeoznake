@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\city;
 
 class CitySeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(city::class, 20)->create();
     }
 }
